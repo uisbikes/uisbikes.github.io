@@ -4,5 +4,4 @@ Bike Checkout software
 
 Project for CS Capstone
 
-Project By: Charles, Sagun, Bret and Abrar. 
-....
+Project By: Charles, Sagun, Bret and Abrar.
