@@ -32,4 +32,4 @@ function BikeList(props) {
   );
 }
 
-export default BikeList;
+export { BikeList };
