@@ -23,30 +23,36 @@ function Bike(props) {
       });
   };
 
+  console.log(location.state);
+
   return (
     <div className="card">
       <div className="card-header">
         {location.state ? (
           <div>
             <h3>Bike Detail</h3>
-            Bike No : {location.state.currentBike.name}
-            Bike ID : {location.state.currentBike._id}
-            Bike Type : {location.state.currentBike.type}  
+            <ul>
+              <li>Bike No : {location.state.currentBike.name}</li>
+              <li>Bike ID : {location.state.currentBike._id}</li>
+              <li>Bike Type: {location.state.currentBike.type}</li>
+              <li>Bike Availablity: {location.state.currentBike.available ? "Available" : "Unavailable"}</li>
+            </ul>
+            
             <Link to={`/bikes/${location.state.currentBike._id}/edit`}
               state={{
                 currentBike: location.state.currentBike
               }}
-            className="btn btn-primary col-sm mx-1 mb-1">Edit Bike</Link>
-            <a onClick={() => deleteBike(location.state.currentBike._id, location.state.currentBike.name)} className="btn btn-primary col-sm mx-1 mb-1">Delete</a>
+            className="btn btn-primary mx-1 mb-1">Edit Bike</Link>
+            <a onClick={() => deleteBike(location.state.currentBike._id, location.state.currentBike.name)} className="btn btn-danger col-sm mx-1 mb-1">Delete</a>
           </div>
         ) : (
-          <div>
+          <div className="d-flex flex-row justify-content-between">
             {props.index + 1}. Bike No : {props.bike.name}  
             <Link to={`/bikes/${props.bike._id}`}
               state={{
                 currentBike: props.bike
               }}
-            className="btn btn-primary col-sm mx-1 mb-1">View</Link>
+            className="btn btn-info mx-1 mb-1">View</Link>
           </div>
         )}
       </div>
