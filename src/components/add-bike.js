@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import bikeService from "../services/bike-service";
+import BikeDataService from "../services/bike-service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route, Link, useLocation } from "react-router-dom";
 
 const AddBike = () => {
+  const location = useLocation();
+  
   const bikeState = {
+    id: "",
     name: "",
     type: "Daily",
     available: false,
@@ -12,12 +15,13 @@ const AddBike = () => {
 
   let editing = false;
 
-  // if (props.location.state && props.location.state.currentBike) {
-  //   editing = true;
-  //   bikeState.name = props.location.state.currentBike.name;
-  //   bikeState.type = props.location.state.currentBike.type;
-  //   bikeState.availability = props.location.state.currentBike.availability;
-  // }
+  if (location.state && location.state.currentBike) {
+    editing = true;
+    bikeState.id = location.state.currentBike._id
+    bikeState.name = location.state.currentBike.name;
+    bikeState.type = location.state.currentBike.type;
+    bikeState.available = location.state.currentBike.available;
+  }
 
   const [bike, setBike] = useState(bikeState);
   const [submitted, setSubmitted] = useState(false);
@@ -25,7 +29,6 @@ const AddBike = () => {
   const updateName = e => {
     const newBikeState = bike;
     newBikeState.name = e.target.value;
-    console.log("Hereerererer" + newBikeState.name);
     setBike(newBikeState);
   };
 
@@ -43,7 +46,7 @@ const AddBike = () => {
 
   const saveBike = () => {
     if (editing) {
-        bikeService.updateBike(bike)
+        BikeDataService.updateBike(bike)
         .then(response => {
           setSubmitted(true);
           console.log(response.data);
@@ -52,7 +55,7 @@ const AddBike = () => {
           console.log(e);
         });
     } else {
-        bikeService.addBike(bike)
+        BikeDataService.addBike(bike)
         .then(response => {
           setSubmitted(true);
           console.log(response.data);
@@ -91,13 +94,13 @@ const AddBike = () => {
             </div>
             <div className="form-group">
                 <label hmtlFor="exampleFormControlSelect1">Type</label>
-                <select className="form-control" id="exampleFormControlSelect1" onChange={updateType}>
-                    <option value="Daily">Daily Bikes</option>
-                    <option value="Weekly">Weekly Bikes</option>
+                <select className="form-control" id="exampleFormControlSelect1" onChange={updateType} value={bike.type}>
+                    <option value="Daily">Daily Bike</option>
+                    <option value="Weekly">Weekly Bike</option>
                 </select>
             </div>
             <div className="form-group">
-              <input type="checkbox" id="availability" name="availability" value="" onChange={updateAvailability}></input>
+              <input type="checkbox" defaultChecked={bike.available} id="availability" name="availability" onChange={updateAvailability} ></input>
               <label hmtlFor="availability"> Available</label>
             </div>
             <button onClick={saveBike} className="btn btn-success">

@@ -14,7 +14,7 @@ class BikeDataService {
   }
 
   deleteBike(id, bikeId) {
-    return http.delete(`/deleteBike?id=${id}`, {data:{bike_id: bikeId}})
+    return http.delete(`/removeBike?id=${id}`, {data:{bike_id: bikeId}})
   }
 }
 
