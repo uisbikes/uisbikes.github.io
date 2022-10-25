@@ -6,6 +6,8 @@ import "./App.css";
 import Login from "./components/login";
 import Layout from "./components/layout";
 import AddBike from "./components/add-bike";
+import { BikeList } from "./components/bike-list";
+import { Bike } from "./components/bike";
 
 function App() {
   const [user, setUser] = React.useState(null);
@@ -22,10 +24,10 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/bikes/add" element={<AddBike />} />
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Layout />} />
+          <Route path="/bikes/:bikeId" element={<Bike />} />
+          <Route path="/bikes/:bikeId/*" element={<AddBike />} />
           <Route path="*" element={<Layout />} />
-          </Route>
         </Routes>
       </BrowserRouter>
     </div>

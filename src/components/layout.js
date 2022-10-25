@@ -17,18 +17,18 @@ const Layout = () => {
       <Navbar />
       <br></br>
       <div className="d-flex flex-row justify-content-between">
-          <Link to={"/bikes/add"} className="btn btn-secondary lg">
-            + Add New Bike
-          </Link>
+        <Link to={"/bikes/bike/add"} className="btn btn-secondary lg">
+          + Add New Bike
+        </Link>
 
-          <select
-          className="form-select form-select-lg"
-          style={{ width: "auto" }}
-          onChange={changeBikeType}
-          >
-              <option value="Daily">Daily Bikes</option>
-              <option value="Weekly">Weekly Bikes</option>
-          </select>
+        <select
+        className="form-select form-select-lg"
+        style={{ width: "auto" }}
+        onChange={changeBikeType}
+        >
+          <option value="Daily">Daily Bikes</option>
+          <option value="Weekly">Weekly Bikes</option>
+        </select>
       </div>
 
       <br></br>

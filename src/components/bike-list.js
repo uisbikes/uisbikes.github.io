@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import bikeService from "../services/bike-service";
-import Bike from "./bike";
+import {Bike} from "./bike";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function BikeList(props) {
@@ -25,7 +25,7 @@ function BikeList(props) {
     <div className="BikeList">
       {bikeList.bikes
         ? bikeList.bikes.map((a, index) => {
-            return <Bike bike={a} key = {a.toString} available = {props.available} index = {index}/>;
+            return <Bike bike={a} key = {a.name} available = {props.available} index = {index}/>;
           })
         : null}
     </div>
