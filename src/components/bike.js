@@ -23,39 +23,76 @@ function Bike(props) {
       });
   };
 
-  console.log(location.state);
-
   return (
-    <div className="card">
-      <div className="card-header">
+    <div>
         {location.state ? (
           <div>
-            <h3>Bike Detail</h3>
-            <ul>
-              <li>Bike No : {location.state.currentBike.name}</li>
-              <li>Bike ID : {location.state.currentBike._id}</li>
-              <li>Bike Type: {location.state.currentBike.type}</li>
-              <li>Bike Availablity: {location.state.currentBike.available ? "Available" : "Unavailable"}</li>
-            </ul>
-            
-            <Link to={`/bikes/${location.state.currentBike._id}/edit`}
-              state={{
-                currentBike: location.state.currentBike
-              }}
-            className="btn btn-primary mx-1 mb-1">Edit Bike</Link>
-            <a onClick={() => deleteBike(location.state.currentBike._id, location.state.currentBike.name)} className="btn btn-danger col-sm mx-1 mb-1">Delete</a>
+            <section className="py-5">
+              <div className="container px-4 px-lg-5 my-5">
+                  <div className="row gx-4 gx-lg-5 align-items-center">
+                      <div className="col-md-6"><img className="card-img-top mb-5 mb-md-0" src="https://images.pexels.com/photos/100582/pexels-photo-100582.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Image of Rental Bike" /></div>
+                      <div className="col-md-6">
+                          <div className="small mb-1">SKU: {location.state.currentBike._id}</div>
+                          <h1 className="display-5 fw-bolder">Bike {location.state.currentBike.name}</h1>
+                          <div className="fs-5 mb-5">
+                              <p className="fw-lighter">{location.state.currentBike.type} Bike</p>
+                              <p className="fw-bold">{location.state.currentBike.available ? "Available" : "Unavailable"}</p>
+                          </div>
+                          <p className="lead">Bikes are offered to students as part of the UIS Bikes Program to improve connections and community across campus.</p>
+                          <div className="d-flex space-between">
+                            <Link to={`/bikes/${location.state.currentBike._id}/edit`}
+                            state={{
+                              currentBike: location.state.currentBike
+                            }}>
+                              <button className="btn btn-outline-dark flex-shrink-0" type="button" style={{marginRight: 0.5 + 'em'}}>
+                                  <i className="bi bi-pencil-square me-1"></i>
+                                  Edit
+                              </button>
+                            </Link>
+                            <a className="btn btn-danger" type="button" onClick={() => deleteBike(location.state.currentBike._id, location.state.currentBike.name)}>
+                                <i className="bi bi-trash me-1"></i>
+                                Delete
+                            </a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </section>
           </div>
         ) : (
-          <div className="d-flex flex-row justify-content-between">
-            {props.index + 1}. Bike No : {props.bike.name}  
-            <Link to={`/bikes/${props.bike._id}`}
-              state={{
-                currentBike: props.bike
-              }}
-            className="btn btn-info mx-1 mb-1">View</Link>
-          </div>
+            <div className="col mb-5">
+              <div className="card h-100">
+                <div className="badge bg-dark text-white position-absolute" style={{marginRight: 0.5 + 'em', marginTop: 0.5 + 'em'}}>{props.bike.available ? "Available" : "Unavailable"}</div>
+                <img className="card-img-top" src="https://images.pexels.com/photos/100582/pexels-photo-100582.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Sample Bike Image" />
+                <div className="card-body p-4">
+                    <div className="text-center">
+                      <Link to={`/bikes/${props.bike._id}`}
+                        state={{
+                          currentBike: props.bike
+                        }}
+                      className="btn btn-info btn-xs" style={{marginBottom: 0.5 + 'em'}}>
+                        <h6 className="fw-bolder">Bike: {props.bike.name}</h6>
+                      </Link>
+                      <div className="d-flex justify-content-center small text-warning mb-2">
+                        <div className="bi-star-fill"></div>
+                        <div className="bi-star-fill"></div>
+                        <div className="bi-star-fill"></div>
+                        <div className="bi-star-fill"></div>
+                        <div className="bi-star-fill"></div>
+                      </div>
+                    </div>
+                </div>
+                <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div className="text-center">
+                      <a className="btn btn-outline-dark mt-auto" href="#">
+                        <i class="bi-cart-fill me-1"></i>
+                          Checkout
+                      </a>
+                    </div>
+                </div>
+              </div>
+            </div>
         )}
-      </div>
     </div>
   );
 }
