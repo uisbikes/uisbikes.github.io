@@ -81,11 +81,10 @@ const AddBike = () => {
           <div>
             <h3>{ editing ? "Edit" : "Create" } Bike</h3>
             <div className="form-group">
-              <label htmlFor="text" className="form-label">Bike Name</label>
+              <label className="form-label">Bike Name</label>
               <input
                 type="text"
                 className="form-control"
-                id="text"
                 required
                 defaultValue={bike.name}
                 onChange={updateName}
@@ -93,15 +92,15 @@ const AddBike = () => {
               />
             </div>
             <div className="form-group">
-                <label hmtlFor="exampleFormControlSelect1">Type</label>
-                <select className="form-control" id="exampleFormControlSelect1" onChange={updateType} value={bike.type}>
+                <label>Type</label>
+                <select className="form-control" onChange={updateType} value={bike.type}>
                     <option value="Daily">Daily Bike</option>
                     <option value="Weekly">Weekly Bike</option>
                 </select>
             </div>
             <div className="form-group">
               <input type="checkbox" defaultChecked={bike.available} id="availability" name="availability" onChange={updateAvailability} ></input>
-              <label hmtlFor="availability"> Available</label>
+              <label> Available</label>
             </div>
             <button onClick={saveBike} className="btn btn-success">
               Submit
