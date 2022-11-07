@@ -85,7 +85,7 @@ function Bike(props) {
                 <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                     <div className="text-center">
                       <a className="btn btn-outline-dark mt-auto" href="#">
-                        <i class="bi-cart-fill me-1"></i>
+                        <i className="bi-cart-fill me-1"></i>
                           Checkout
                       </a>
                     </div>

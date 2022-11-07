@@ -1,59 +1,76 @@
-import React, { useState } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import {React, useEffect} from "react";
+import jwtDecode from "jwt-decode";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useSelector, useDispatch } from "react-redux";
 
-function Login(props) {
-  const initialUserState = {
-    username: "",
-    password: "",
-  };
+function Login() {
+  const google = window.google;
+  const user = useSelector(state => state)
+  const dispatch = useDispatch(); 
 
-  const [user, setUser] = useState(initialUserState);
+  const login = (userObject) => {
+    dispatch({
+      type : "LOGIN", 
+      payload : {
+        name : userObject.name, 
+        email : userObject.email
+      }
+    })
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setUser({ ...user, [name]: value });
-  };
+    document.getElementById("signInDiv").hidden = true; 
+  }
 
-  const login = () => {
-    props.login(user);
-  };
+  const logout = () => {
+    dispatch({
+      type : "LOGOUT", 
+    })
+
+    
+    document.getElementById("signInDiv").hidden = false;
+    initializeApp();
+    renderLoginButton();  
+  }
+  
+  const handleCallbackResponse = (response) => {
+    var userObject = jwtDecode(response.credential);
+    
+    if(userObject.hd === 'uis.edu') login(userObject); 
+  }
+
+  const initializeApp = () => {
+    google.accounts.id.initialize({
+      client_id: "148420629269-5e7qakcb8vsqqpdean9l8kmpj5fpgemn.apps.googleusercontent.com",
+      callback: handleCallbackResponse
+    });
+  }
+
+  const renderLoginButton = () => {
+    google.accounts.id.renderButton(
+      document.getElementById("signInDiv"), 
+      {
+        theme: "outline", 
+        size: "medium"
+      }
+    );
+  }
+
+  useEffect(() => {
+    if(user.name) return
+    initializeApp(); 
+    renderLoginButton(); 
+  }, [])
 
   return (
-    <div className="submit-form">
-      <div>
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            className="form-control"
-            id="username"
-            required
-            value={user.username}
-            onChange={handleInputChange}
-            name="username"
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="text"
-            className="form-control"
-            id="password"
-            required
-            value={user.password}
-            onChange={handleInputChange}
-            name="password"
-          />
-        </div>
-
-        <button onClick={login} className="btn btn-success">
-          Login
-        </button>
-      </div>
+    <div>
+      <div id="signInDiv"></div>
+       {(user.name) &&
+          <div className="text-light d-flex ">
+            <p className= "m-2">{user.name}</p>
+            <button className="btn btn-primary mx-2" onClick={() => logout()}>Sign out</button>
+          </div>
+       }
     </div>
-  );
+  )
 }
 
 export default Login;

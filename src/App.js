@@ -1,7 +1,6 @@
-import React from "react";
+import {React, useEffect} from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import "./App.css";
 
 import Login from "./components/login";
@@ -11,16 +10,6 @@ import { BikeList } from "./components/bike-list";
 import { Bike } from "./components/bike";
 
 function App() {
-  const [user, setUser] = React.useState(null);
-
-  async function login(user = null) {
-    setUser(user);
-  }
-
-  async function logout() {
-    setUser(null);
-  }
-
   return (
     <div>
       <BrowserRouter>
