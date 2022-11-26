@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Switch, Route, Link, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BikeDataService from "../services/bike-service";
+import { useSelector, useDispatch } from "react-redux";
 
 function Bike(props) {
   const location = useLocation();
+  const user = useSelector(state => state); 
 
   const [deleted, setDeleted] = useState(false);
 
@@ -40,10 +42,10 @@ function Bike(props) {
                           <h1 className="display-5 fw-bolder">Bike {location.state.currentBike.name}</h1>
                           <div className="fs-5 mb-5">
                               <p>{location.state.currentBike.type} Bike</p>
-                              <p className="fw-bold">{location.state.currentBike.available ? "Available" : `Taken by: ${location.state.currentBike.student}`}</p>
+                              <p className="fw-bold">{location.state.currentBike.available ? "Available" : (user.name) ? `Taken by: ${location.state.currentBike.student}` : "Unavailable"}</p>
                           </div>
                           <p className="lead">Bikes are offered to students as part of the UIS Bikes Program to improve connections and community across campus.</p>
-                          <div className="d-flex space-between">
+                          {user.name && <div className="d-flex space-between">
                             <Link to={`/bikes/${location.state.currentBike._id}/edit`}
                             state={{
                               currentBike: location.state.currentBike
@@ -57,7 +59,7 @@ function Bike(props) {
                                 <i className="bi bi-trash me-1"></i>
                                 Delete
                             </a>
-                          </div>
+                          </div>}
                       </div>
                   </div>
               </div>
@@ -72,7 +74,12 @@ function Bike(props) {
                     <div className="text-center">
                       <div
                       className="btn btn-info btn-xs" style={{marginBottom: 0.5 + 'em'}}>
-                        <h6 className="fw-bolder">Bike: {props.bike.name}</h6>
+                        <Link className="btn mt-auto" to={`/bikes/${props.bike._id}`}
+                        state={{
+                          currentBike: props.bike
+                        }}>
+                          <h6 className="fw-bolder">Bike: {props.bike.name}</h6>
+                        </Link>
                       </div>
                       <div className="d-flex justify-content-center small text-warning mb-2">
                         <div className="bi-star-fill"></div>
@@ -82,10 +89,10 @@ function Bike(props) {
                         <div className="bi-star-fill"></div>
                       </div>
 
-                      {!props.bike.available ? <div className = "btn btn-success">Student ID: {props.bike.student}</div> : null}
+                      {!props.bike.available && (user.name)? <div className = "btn btn-success">Student ID: {props.bike.student}</div> : null}
                     </div>
                 </div>
-                <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                {(user.name) && <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                     <div className="text-center">
                       <Link className="btn btn-outline-dark mt-auto" to={`/bikes/${props.bike._id}`}
                         state={{
@@ -95,7 +102,7 @@ function Bike(props) {
                         {props.bike.available ? "Checkout" : "Check In"}
                       </Link>
                     </div>
-                </div>
+                </div>}
               </div>
             </div>
         ))}

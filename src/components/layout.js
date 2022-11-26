@@ -4,9 +4,11 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 
 import Navbar from "./navbar";
 import { BikeList } from "./bike-list";
+import { useSelector } from "react-redux";
 
 const Layout = () => {
   const [bikeType, setBikeType] = React.useState("Daily");
+  const user = useSelector(state => state); 
 
   async function changeBikeType(event) {
     setBikeType(event.target.value);
@@ -17,10 +19,6 @@ const Layout = () => {
       <Navbar />
       <br></br>
       <div className="d-flex flex-row justify-content-between">
-        <Link to={"/bikes/bike/add"} className="btn btn-secondary lg">
-          + Add New Bike
-        </Link>
-
         <select
         className="form-select form-select-lg"
         style={{ width: "auto" }}
@@ -29,6 +27,10 @@ const Layout = () => {
           <option value="Daily">Daily Bikes</option>
           <option value="Weekly">Weekly Bikes</option>
         </select>
+
+        {(user.name) && <Link to={"/bikes/bike/add"} className="btn btn-secondary lg">
+          + Add New Bike
+        </Link>}
       </div>
 
       <br></br>
