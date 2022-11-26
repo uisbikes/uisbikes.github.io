@@ -27,7 +27,7 @@ const AddBike = () => {
 
   const [bike, setBike] = useState(bikeState);
   const [submitted, setSubmitted] = useState(false);
-  const [available, setAvailable] = useState(bikeState.available); 
+  const [available, setAvailable] = useState(bikeState.available);
 
   const updateName = (e) => {
     const newBikeState = bike;
@@ -36,9 +36,10 @@ const AddBike = () => {
   };
 
   async function updateType(e) {
-    const newBikeState = bike;
-    newBikeState.type = e.target.value;
-    setBike(newBikeState);
+    setBike({
+      ...bike, 
+      type: e.target.value
+    });
   }
 
   const updateAvailability = (e) => {
@@ -46,12 +47,12 @@ const AddBike = () => {
     newBikeState.available = document.getElementById("availability").checked;
 
     if (newBikeState.available) {
-      setAvailable(true); 
+      setAvailable(true);
       newBikeState.student = "";
     } else {
-      setAvailable(false); 
+      setAvailable(false);
     }
-    
+
     setBike(newBikeState);
   };
 
@@ -132,18 +133,20 @@ const AddBike = () => {
             </div>
             <br></br>
 
-            {!available ? <div className="form-group">
-              <label className="form-label">Student</label>
-              <input
-                type="text"
-                className="form-control"
-                id="student-form-input"
-                required
-                defaultValue={bike.student}
-                onChange={updateStudent}
-                name="text"
-              />
-            </div> : null}
+            {!available ? (
+              <div className="form-group">
+                <label className="form-label">Student</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="student-form-input"
+                  required
+                  defaultValue={bike.student}
+                  onChange={updateStudent}
+                  name="text"
+                />
+              </div>
+            ) : null}
 
             <br></br>
             <button onClick={saveBike} className="btn btn-success">
