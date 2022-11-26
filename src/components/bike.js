@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route, Link, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import BikeDataService from "../services/bike-service";
@@ -6,26 +6,30 @@ import BikeDataService from "../services/bike-service";
 function Bike(props) {
   const location = useLocation();
 
+  const [deleted, setDeleted] = useState(false);
+
   const deleteBike = (id, bike_id) => {
     BikeDataService.deleteBike(id, bike_id)
-      .then(response => {
-        return(
-          <div>
-            <h4>Bike has been deleted successfully!</h4>
-            <Link to={"/"} className="btn btn-success">
-              Back to Bike Checkout Home Page
-            </Link>
-          </div>
-        )
+    .then(response => {
+        setDeleted(true);
+        console.log(response.data);
       })
-      .catch(e => {
-        console.log(e);
-      });
+    .catch(e => {
+      console.log(e);
+    });
   };
 
   return (
     <div>
-        {location.state ? (
+        {deleted ? (
+        <div>
+            <h4>Bike has been deleted successfully!</h4>
+            <Link to={"/"} className="btn btn-success">
+              Back to Bike Checkout Home Page
+            </Link>
+        </div> 
+        ) : (
+        location.state ? (
           <div>
             <section className="py-5">
               <div className="container px-4 px-lg-5 my-5">
@@ -85,14 +89,14 @@ function Bike(props) {
                 <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                     <div className="text-center">
                       <a className="btn btn-outline-dark mt-auto" href="#">
-                        <i className="bi-cart-fill me-1"></i>
-                          Checkout
+                        <i class="bi-cart-fill me-1"></i>
+                        {props.bike.available ? "Checkout" : "Check In"}
                       </a>
                     </div>
                 </div>
               </div>
             </div>
-        )}
+        ))}
     </div>
   );
 }
