@@ -39,8 +39,8 @@ function Bike(props) {
                           <div className="small mb-1">SKU: {location.state.currentBike._id}</div>
                           <h1 className="display-5 fw-bolder">Bike {location.state.currentBike.name}</h1>
                           <div className="fs-5 mb-5">
-                              <p className="fw-lighter">{location.state.currentBike.type} Bike</p>
-                              <p className="fw-bold">{location.state.currentBike.available ? "Available" : "Unavailable"}</p>
+                              <p>{location.state.currentBike.type} Bike</p>
+                              <p className="fw-bold">{location.state.currentBike.available ? "Available" : `Taken by: ${location.state.currentBike.student}`}</p>
                           </div>
                           <p className="lead">Bikes are offered to students as part of the UIS Bikes Program to improve connections and community across campus.</p>
                           <div className="d-flex space-between">
@@ -70,13 +70,10 @@ function Bike(props) {
                 <img className="card-img-top" src="https://images.pexels.com/photos/100582/pexels-photo-100582.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Sample Bike Image" />
                 <div className="card-body p-4">
                     <div className="text-center">
-                      <Link to={`/bikes/${props.bike._id}`}
-                        state={{
-                          currentBike: props.bike
-                        }}
+                      <div
                       className="btn btn-info btn-xs" style={{marginBottom: 0.5 + 'em'}}>
                         <h6 className="fw-bolder">Bike: {props.bike.name}</h6>
-                      </Link>
+                      </div>
                       <div className="d-flex justify-content-center small text-warning mb-2">
                         <div className="bi-star-fill"></div>
                         <div className="bi-star-fill"></div>
@@ -84,14 +81,19 @@ function Bike(props) {
                         <div className="bi-star-fill"></div>
                         <div className="bi-star-fill"></div>
                       </div>
+
+                      {!props.bike.available ? <div className = "btn btn-success">Student ID: {props.bike.student}</div> : null}
                     </div>
                 </div>
                 <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                     <div className="text-center">
-                      <a className="btn btn-outline-dark mt-auto" href="#">
+                      <Link className="btn btn-outline-dark mt-auto" to={`/bikes/${props.bike._id}`}
+                        state={{
+                          currentBike: props.bike
+                        }}>
                         <i class="bi-cart-fill me-1"></i>
                         {props.bike.available ? "Checkout" : "Check In"}
-                      </a>
+                      </Link>
                     </div>
                 </div>
               </div>
