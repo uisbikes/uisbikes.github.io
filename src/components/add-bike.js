@@ -4,8 +4,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Route, Link, useLocation } from "react-router-dom";
 
 const AddBike = () => {
+  // Track any bike information available
   const location = useLocation();
 
+  // Track current bike state for updates
   const bikeState = {
     id: "",
     name: "",
@@ -84,6 +86,7 @@ const AddBike = () => {
     }
   };
 
+  // Bike View
   return (
     <div>
       <div className="submit-form">

@@ -27,3 +27,6 @@ Finally, run the next command in the terminal to see the web app in your local b
 
 IDE to edit and run the code (We use Visual Studio Code ?).
 Node.js already downloaded.
+
+## Deployed Web Application
+UIS Bikes is a web application that can be accessed anytime at [uisbikes.github.io](http://uisbikes.github.io). 
