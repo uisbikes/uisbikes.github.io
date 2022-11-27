@@ -4,6 +4,7 @@ import {Bike} from "./bike";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function BikeList(props) {
+  // Maintain accurate list of bikes in database
   const [bikeList, setBikeList] = React.useState({});
 
   const getBikeList = (type, available) => {
