@@ -11,6 +11,9 @@ To get a local copy up and running follow these simple example steps.
 Clone this project by the command:
 `$ git clone https://github.com/uisbikes/uisbikes.github.io`
 
+Then go into the project using this command: 
+`$ cd uisbikes.github.io`
+
 Then go to the main folder using the next command:
 `$ cd src`
 
