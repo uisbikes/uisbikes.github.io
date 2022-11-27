@@ -3,8 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./login";
 
 const Navbar = () => {
-
-
   return (
     <nav
       className="navbar navbar-light rounded-bottom d-flex flex-row justify-content-between"
