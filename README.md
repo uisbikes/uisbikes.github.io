@@ -11,8 +11,11 @@ To get a local copy up and running follow these simple example steps.
 Clone this project by the command:
 `$ git clone https://github.com/uisbikes/uisbikes.github.io`
 
+Then go into the project using this command: 
+`$ cd uisbikes.github.io`
+
 Then go to the main folder using the next command:
-`$ cd Capstone`
+`$ cd src`
 
 Then run the next command to install all dependencies:
 `$ npm install`
@@ -20,11 +23,8 @@ Then run the next command to install all dependencies:
 Finally, run the next command in the terminal to see the web app in your local browser, or also, you can use Live Server in Visual Studio Code.
 `$ npm start`
 
-## Run tests
-If you want to run our tests, use the next command.
-`$ npm test`
-
 ## Prerequisites
+
 IDE to edit and run the code (We use Visual Studio Code ?).
 Node.js already downloaded.
 
